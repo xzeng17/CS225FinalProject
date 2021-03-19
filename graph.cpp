@@ -1,12 +1,14 @@
 #include<map>
 #include<set>
 #include<vector>
+#include<queue>
 #include<string>
 #include <fstream>
 #include <istream>
 #include <iostream>
 
 #include "graph.h"
+#include "structs/nodestep.h"
 using namespace std;
 
 void Graph::buildMap(string& filename, double loadfactor) {
@@ -19,14 +21,15 @@ void Graph::buildMap(string& filename, double loadfactor) {
     // set position to the end
     file.seekg(0, file.end);
     // get total word count
-    size_t lineNumber = (file.tellg() / 11) * loadfactor;    // total nodes are 37700
+    size_t totalByte = file.tellg();
+    size_t lineNumber = totalByte > 100 ? totalByte/11 * loadfactor : totalByte/1 * loadfactor;    // total nodes are 37700
     // set position to the begining
     file.seekg(0, file.beg);
     
     while (getline(file, line) && lineNumber > 0) {
     //while (getline(file, line) ) {
         cout<<line<<endl;                           // print raw data
-        lineNumber--;                                // loop counter
+        lineNumber--;                               // loop counter
         if (line[0]<'0' || line[0] >'9') continue;  // skip header
 
         // extract nodes from csv format
@@ -63,9 +66,31 @@ bool Graph::contains(const string& node) {
 }
 
 string Graph::getRandom() {
-    unsigned random_idx = rand() % (total_+1);
-    cout<<"random index: "<<random_idx<<endl;
-    return listOfNodes_[random_idx-1];
+    unsigned random_idx = rand() % (total_);
+    return listOfNodes_[random_idx];
+}
+
+int Graph::getSocialDistance(const string& node, const string& target) {
+    // use BFS to search the smallest distance from node to target
+    cout<<"<----------Searching Distance---------->"<<endl;
+    if (!contains(node) || !contains(target)) return-1;
+    set<string> visited;
+    
+    queue<NodeStep> q;
+    q.push(NodeStep(node, 0));
+
+    while (!q.empty()) {
+        NodeStep cur = q.front(); q.pop();
+        visited.insert(cur.node);
+        if (cur.node == target) return cur.step;
+        set<string> next = graph_[cur.node];
+        for (auto it=next.begin(); it!=next.end(); ++it) {
+            string nextNode = (*it);
+            if (visited.find(nextNode) != visited.end()) continue;
+            q.push(NodeStep(nextNode, cur.step+1));
+        }
+    } 
+    return -1;
 }
 
 // -------------------private helpers----------------------
