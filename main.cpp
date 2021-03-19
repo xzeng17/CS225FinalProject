@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "graph.h"
+#include "graphs/udgraph.h"
 
 #include <fstream>
 #include <istream>
@@ -12,7 +12,7 @@ int main () {
 
     string filename = "assets/musae_git_edges.csv";
 
-    Graph g;
+    UdGraph g;
     g.buildMap(filename,0.4);
 
     cout<<"two random nodes picked are: "<<endl;

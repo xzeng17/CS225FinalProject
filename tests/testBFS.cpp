@@ -1,7 +1,7 @@
 // #define CATCH_CONFIG_MAIN
 
 #include "../cs225/catch/catch.hpp"
-#include "../graph.h"
+#include "../graphs/udgraph.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ TEST_CASE("testBFS", "[valgrind][weight=1]") {
         string testfile = "tests/testInputBFS/test";
         testfile+=to_string(i);
         testfile+=".csv";
-        Graph test;
+        UdGraph test;
         test.buildMap(testfile, 1);
         int distance = test.getSocialDistance("0", "5");    
         REQUIRE(distance == expected[i-1]);

@@ -2,10 +2,11 @@ EXE = main
 TEST = test
 
 EXE_OBJ = main.o 
-OBJS = main.o graph.o
+OBJS = main.o 
 
 # Additional executables
-EXE_BFS      = testBFS
+EXE_GRAPHS   = graphs
+#EXE_BFS      = testBFS
 
 
 # Override "default" rule provided by the Makefile template
@@ -23,7 +24,7 @@ include cs225/make/cs225.mk
 CXXFLAGS += -Wno-delete-non-virtual-dtor
 
 # Dependencies for additional executables
-OBJS_BFS      = $(OBJS_DIR)/testBFS.o $(OBJS_DIR)/testBFS.o
+#OBJS_BFS      = $(OBJS_DIR)/testBFS.o $(OBJS_DIR)/testBFS.o
 
 # OBJS_PROVIDED = $(OBJS_DIR)/cs225/PNG.o $(OBJS_DIR)/cs225/lodepng/lodepng.o $(OBJS_DIR)/cs225/HSLAPixel.o $(OBJS_DIR)/vector2.o $(OBJS_DIR)/line.o
 
