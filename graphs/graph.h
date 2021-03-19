@@ -13,12 +13,18 @@ class Graph{
         set<string>& getSet(const string& key);
         bool contains(const string& node);
         string getRandom();
-        int getSocialDistance(const string& node, const string& target);
+        
 
         void addNode(const string& lhs, const string& rhs);
         void addToList(const string& node);
-
         void print(const vector<string>& v);
+
+        /***
+         * graph search algorithms
+         */
+        // BFS
+        int getSocialDistance(const string& node, const string& target); 
+
     private:
         unsigned total_ = 0;
         map<string, set<string>> graph_;
