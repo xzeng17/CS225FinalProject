@@ -1,4 +1,5 @@
 #include "udgraph.h"
+#include "graph.h"
 
 #include<map>
 #include<set>

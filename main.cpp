@@ -22,7 +22,7 @@ int main () {
     cout<<"point A: "<<nodeA<<endl;
     cout<<"point B: "<<nodeB<<endl;
 
-    int distance = g.getSocialDistance(nodeA, nodeB);
+    int distance = g.getShortestDistance(nodeA, nodeB);
     cout<<"Social distance between A and B are: "<<distance<<endl;
 
     // for (int i=1; i<= 5; i++) {
@@ -32,7 +32,7 @@ int main () {
     //     Graph test;
     //     test.buildMap(testfile, 1);
 
-    //     int distance = test.getSocialDistance("0", "5");    
+    //     int distance = test.getShortestDistance("0", "5");    
     //     cout<<"test "<<i<<" result: "<<distance<<endl;
     // }
     /*

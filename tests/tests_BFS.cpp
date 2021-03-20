@@ -13,14 +13,8 @@ TEST_CASE("testBFS", "[valgrind][weight=1]") {
         testfile+=".csv";
         UdGraph test;
         test.buildMap(testfile, 1);
-        int distance = test.getSocialDistance("0", "5");    
+        string nodeA = "0", nodeB = "5";
+        int distance = test.getShortestDistance(nodeA, nodeB);    
         REQUIRE(distance == expected[i-1]);
     }
-/*
-        test1 should see -1
-        test2 should see 5
-        test3 should see 2
-        test4 should see 2
-        test5 should see -1
-*/
 }

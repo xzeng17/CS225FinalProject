@@ -72,9 +72,9 @@ string Graph::getRandom() {
     return listOfNodes_[random_idx];
 }
 
-int Graph::getSocialDistance(const string& node, const string& target) {
+int Graph::getShortestDistance(const string& node, const string& target) {
     // use BFS to search the smallest distance from node to target
-    cout<<"<----------Searching Distance---------->"<<endl;
+    cout<<"<----------Searching Distance BFS---------->"<<endl;
     if (!contains(node) || !contains(target)) return-1;
     set<string> visited;
     
@@ -93,6 +93,24 @@ int Graph::getSocialDistance(const string& node, const string& target) {
         }
     } 
     return -1;
+}
+
+int Graph::getLeastWeightedDistance(const string& node, const string& target) {
+    // need implementation
+
+    return 0;
+}
+
+bool Graph::isReachableIDDFS(const string& node, const string& target, int n) {
+    // need implementation
+    
+    return false;
+}
+
+int Graph::findCircleWithNumberOfNodes(const string& node, int n) {
+    // need implementation
+    
+    return 0;
 }
 
 // -------------------private helpers----------------------
