@@ -28,14 +28,12 @@ void FileLoader::load(double loadfactor) {
 }
 
 void FileLoader::build() {
-    if (filename.size() <= 4) return;   // illigal name
-    string ext = filename.substr (filename.size()-4,filename.size());
+    if (filename.size() <= 4) throw runtime_error("Error: Unaccetable file name.");
+    string ext = filename.substr(filename.size()-4,filename.size());
     Extension extension = findExtension(ext);
-    if (extension == Extension()) {
-        throw runtime_error("Error: Fail to load file, only support txt and csv file.");
-    };
-    if (extension == Extension (csv)) buildCSV();
-    if (extension == Extension (txt)) buildTXT();
+    if (extension == Extension()) throw runtime_error("Error: Fail to load file, only support txt and csv file.");
+    if (extension == csv) buildCSV();
+    if (extension == txt) buildTXT();
 }
 
 bool FileLoader::hasNext() {
@@ -47,10 +45,10 @@ size_t FileLoader::getByte() {
     return file_.tellg();
 }
 
-// to be more supporting extensions...
+// to be continue for more supporting extensions...
 Extension FileLoader::findExtension(const string& extension) const {
-    if (extension == ".txt") return Extension (txt);
-    if (extension == ".csv") return Extension (csv);
+    if (extension == ".txt") return txt;
+    if (extension == ".csv") return csv;
     return Extension();
 }
 
