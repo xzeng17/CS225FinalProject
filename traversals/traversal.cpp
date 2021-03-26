@@ -30,7 +30,6 @@ Traversal::Iterator& Traversal::Iterator::operator++() {
         current_ = traversal_->pop();
         visited_.insert(current_.node);
         set<string> nexts = traversal_->getSet(current_.node);
-
         for (string next : nexts) {
             NodeStep nextns(next, current_);
             if (canMove(nextns)) {

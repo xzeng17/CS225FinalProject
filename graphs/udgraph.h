@@ -10,10 +10,8 @@ using namespace std;
 
 class UdGraph: public Graph {
     public:
-        void buildMap(string& filename, double loadFactor);
-
+        UdGraph(const string& filename, double loadfactor = 1.0);
+        Type type() const;
     private:
-
-
-
+        const Type type_ = undirected;
 };

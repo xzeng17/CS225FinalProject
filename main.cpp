@@ -8,6 +8,20 @@
 #include <istream>
 using namespace std;
 
+void print(const vector<string>& v) {
+    if (v.size() == 0) return;
+    cout<<"[";
+    for (unsigned i=0; i<v.size(); i++) {
+        if (i == v.size()-1) {
+            cout<<v[i];
+        } else {
+            cout<<v[i]<< ", ";
+        }
+    }
+    cout<<"]"<<endl;
+}
+
+
 // int main (int argc, char** argv) {
 int main () {
     // string filename = "assets/test.csv";
@@ -31,13 +45,15 @@ int main () {
     // <------------test new traversal based classes------------>
     string filename = "tests/testInputBFS/test2.csv";
     vector<int> expected = {-1,5,2,2,-1};
-    UdGraph test;
-    test.buildMap(filename, 1);
-    BFS bfs(&test, NodeStep("3", 0));
-    cout<<"*****calling iterator*****"<<endl;
-    for (auto it = bfs.begin(); it != bfs.end(); ++it) {
-        cout<<(*it)<<endl;
-    }
+    UdGraph test(filename);
+    test.bfs("3");
+    // test.buildMap(filename, 1);
+
+    // BFS bfs(&test, NodeStep("3", 0));
+    // cout<<"*****calling iterator*****"<<endl;
+    // for (auto it = bfs.begin(); it != bfs.end(); ++it) {
+    //     cout<<(*it)<<endl;
+    // }
     return 0;
 }
 
