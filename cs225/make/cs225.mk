@@ -14,7 +14,7 @@ CXX = clang++
 LD = clang++
 OBJS_DIR = .objs
 
-OBJS += graphs/graph.o graphs/udgraph.o graphs/digraph.o
+OBJS += graphs/graph.o graphs/udgraph.o graphs/digraph.o traversals/traversal.o traversals/BFS.o 
 
 # Add standard CS 225 object files
 # OBJS += cs225/HSLAPixel.o cs225/PNG.o cs225/lodepng/lodepng.o
@@ -50,7 +50,8 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)/cs225/catch
 	#@mkdir -p $(OBJS_DIR)/cs225/lodepng
 	@mkdir -p $(OBJS_DIR)/tests	
-	@mkdir -p $(OBJS_DIR)/graphs	
+	@mkdir -p $(OBJS_DIR)/graphs
+	@mkdir -p $(OBJS_DIR)/traversals	
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
@@ -79,7 +80,8 @@ $(TEST): $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
 -include $(OBJS_DIR)/cs225/catch/*.d
 #-include $(OBJS_DIR)/cs225/lodepng/*.d
 -include $(OBJS_DIR)/tests/*.d
--include $(OBJS_DIR)/graphs/*.d		
+-include $(OBJS_DIR)/graphs/*.d
+-include $(OBJS_DIR)/traversals/*.d
 
 # Standard C++ Makefile rules:
 clean:

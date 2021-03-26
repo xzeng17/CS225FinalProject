@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "graph.h"
-#include "../structs/nodestep.h"
+#include "../structs/nodestep.hpp"
 using namespace std;
 
 /*******************old implementation************************************

@@ -20,7 +20,6 @@ class Graph{
         void addNode(const string& lhs, const string& rhs);
         void addToList(const string& node);
         void print(const vector<string>& v);
-
         /***
          * graph search algorithms
          */
