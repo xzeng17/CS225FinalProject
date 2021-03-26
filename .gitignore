@@ -1,0 +1,8 @@
+# ignore executables
+test
+main
+
+# ignore compile intermediates
+*.o
+*.d
+.obj
