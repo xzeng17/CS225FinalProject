@@ -17,13 +17,13 @@ Currently implemented:
 4. BFS test case
 
 Will build the following API:
-1. Modify current buildGraph function to accomodate .txt input file.
+1. Implement fileloader buildTXT method to accomodate .txt input file.
 2. Implement DFS finding n sized circle
 3. Implement Dijkstra’s Algorithm
 4. Implement IDDF search
 5. Strongly connected component for undirected graph
 6. Implement test cases
-7. Test Algorithm on both graph type
+7. Test Algorithm on both graph types
 8. Design flow
 9. Implement user Interaction
 10. Test flow

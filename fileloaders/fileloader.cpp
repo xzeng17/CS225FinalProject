@@ -8,6 +8,7 @@
 using namespace std;
 
 FileLoader::FileLoader(Graph* graph, const string& filename, double loadfactor) {
+    if (filename.size() <= 4) throw runtime_error("Error: Unaccetable file name.");
     this->graph = graph;
     this->filename = filename;
     load(loadfactor);
@@ -28,7 +29,6 @@ void FileLoader::load(double loadfactor) {
 }
 
 void FileLoader::build() {
-    if (filename.size() <= 4) throw runtime_error("Error: Unaccetable file name.");
     string ext = filename.substr(filename.size()-4,filename.size());
     Extension extension = findExtension(ext);
     if (extension == Extension()) throw runtime_error("Error: Fail to load file, only support txt and csv file.");
