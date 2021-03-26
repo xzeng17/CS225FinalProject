@@ -19,22 +19,3 @@ TEST_CASE("testBFS", "[valgrind][weight=1]") {
     }
 }
 
-TEST_CASE("testBFS with Iterators", "[valgrind][weight=1]") {
-    vector<int> expected = {-1,5,2,2,-1};
-    for (int i=1; i<= 5; i++) {
-        string testfile = "tests/testInputBFS/test";
-        testfile+=to_string(i);
-        testfile+=".csv";
-        UdGraph test(testfile);
-        BFS bfs(&test, NodeStep("0", 0));
-        int distance = -1;          // need to have a wraper function and update the test case
-        for (NodeStep ns : bfs) {   // exact same test as above but using iterator
-            if (ns == "5") {
-                distance = ns.step;
-                break;
-            }
-        }
-        REQUIRE(distance == expected[i-1]);
-    }
-}
-

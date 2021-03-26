@@ -56,7 +56,7 @@ void FileLoader::buildCSV() {
     while (hasNext()) {
         string line, lhs, rhs;
         getline(file_, line);
-        cout<<line<<endl;                           // print raw data
+        // cout<<line<<endl;                           // print raw data
 
         if (!isdigit(line[0])) continue;  // skip header
 

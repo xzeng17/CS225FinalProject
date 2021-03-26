@@ -1,7 +1,3 @@
-#include<map>
-#include<set>
-#include<vector>
-#include<queue>
 #include<string>
 #include <fstream>
 #include <istream>
@@ -52,24 +48,32 @@ void Graph::addToList(const string& node) {
 
 int Graph::getShortestDistance(const string& node, const string& target) {
     // use BFS to search the smallest distance from node to target
-    cout<<"<----------Searching Distance BFS---------->"<<endl;
-    if (!contains(node) || !contains(target)) return-1;
-    set<string> visited;
-    
-    queue<NodeStep> q;
-    q.push(NodeStep(node, 0));
 
-    while (!q.empty()) {
-        NodeStep cur = q.front(); q.pop();
-        visited.insert(cur.node);
-        if (cur.node == target) return cur.step;
-        set<string> next = graph_[cur.node];
-        for (auto it=next.begin(); it!=next.end(); ++it) {
-            string nextNode = (*it);
-            if (visited.find(nextNode) != visited.end()) continue;
-            q.push(NodeStep(nextNode, cur.step+1));
-        }
-    } 
+    // cout<<"<----------Searching Distance BFS NonIterator Method---------->"<<endl;
+    // if (!contains(node) || !contains(target)) return-1;
+    // set<string> visited;
+    
+    // queue<NodeStep> q;
+    // q.push(NodeStep(node, 0));
+
+    // while (!q.empty()) {
+    //     NodeStep cur = q.front(); q.pop();
+    //     visited.insert(cur.node);
+    //     if (cur.node == target) return cur.step;
+    //     set<string> next = graph_[cur.node];
+    //     for (auto it=next.begin(); it!=next.end(); ++it) {
+    //         string nextNode = (*it);
+    //         if (visited.find(nextNode) != visited.end()) continue;
+    //         q.push(NodeStep(nextNode, cur.step+1));
+    //     }
+    // } 
+
+    cout<<"<----------Searching Distance BFS Iterator Method---------->"<<endl;
+    BFS bfs(this, NodeStep(node, 0));
+    for (NodeStep it : bfs) {
+        if (it == target) return it.step;
+    }
+    
     return -1;
 }
 
