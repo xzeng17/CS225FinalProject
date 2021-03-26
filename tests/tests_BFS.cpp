@@ -31,7 +31,7 @@ TEST_CASE("testBFS with Iterators", "[valgrind][weight=1]") {
         BFS bfs(&test, NodeStep("0", 0));
         int distance = -1;          // need to have a wraper function and update the test case
         for (NodeStep ns : bfs) {   // exact same test as above but using iterator
-            if (ns.node == "5") {
+            if (ns == "5") {
                 distance = ns.step;
                 break;
             }

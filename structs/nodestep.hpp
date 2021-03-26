@@ -31,6 +31,13 @@ struct NodeStep {
         return !(*this == other);
     }
 
+    bool operator==(const string& nodeString) {
+        return nodeString==node;
+    }
+    
+    bool operator!=(const string& nodeString) {
+        return nodeString!=node;
+    }
 };
 
 inline std::ostream & operator<<(std::ostream & out, NodeStep const & ns) {
