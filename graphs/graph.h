@@ -53,8 +53,6 @@ class Graph{
         virtual void bfs(const string& beginNode);
 
     private:
-        // Total number of nodes
-        unsigned total_ = 0;
         // Representing our graph in a hashmap
         map<string, set<string>> graph_;
         // All unique nodes stored in a list for generating random node

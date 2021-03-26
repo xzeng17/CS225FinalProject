@@ -71,7 +71,8 @@ void FileLoader::buildCSV() {
         }
 
         if (!checkCSV(lhs, rhs)) throw runtime_error("Error: csv file unacceptable format.");
-
+        if (line.size()-1 != lhs.size()+rhs.size()) throw runtime_error("Error: input file non-compatiable format.");
+        
         // undirected graph, add edge both ways
         graph->addToList(lhs);
         graph->addNode(lhs, rhs);

@@ -23,17 +23,13 @@ Traversal::Iterator::Iterator(Traversal* traversal, NodeStep& start) {
 }
 
 Traversal::Iterator& Traversal::Iterator::operator++() {
-    while (!traversal_->empty() && !canMove(traversal_->peek())) {
-        traversal_->pop();
-    } 
     if (!traversal_->empty()) {
         current_ = traversal_->pop();
-        visited_.insert(current_.node);
-        set<string> nexts = traversal_->getSet(current_.node);
-        for (string next : nexts) {
+        for (string next : traversal_->getSet(current_.node)) {
             NodeStep nextns(next, current_);
             if (canMove(nextns)) {
                 traversal_->add(nextns);
+                visited_.insert(current_.node);
             }
         }
     } else {

@@ -22,7 +22,7 @@ unsigned Graph::size() const {
 }
 
 string Graph::getRandom() {
-    unsigned random_idx = rand() % (total_);
+    unsigned random_idx = rand() % (listOfNodes_.size());
     return listOfNodes_[random_idx];
 }
 
@@ -38,7 +38,6 @@ void Graph::addNode(const string& lhs, const string& rhs){
 void Graph::addToList(const string& node) {
     if (!contains(node)) {
         listOfNodes_.push_back(node);
-        total_ ++;
     }
 }
 
