@@ -19,6 +19,7 @@ Traversal::Iterator::Iterator() {
 Traversal::Iterator::Iterator(Traversal* traversal, NodeStep& start) {
     traversal_ = traversal;
     if (canMove(start)) traversal_->add(start);
+    else traversal_ = NULL;
     *this = ++*this;
 }
 
