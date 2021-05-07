@@ -7,7 +7,7 @@
 
 using namespace std;
 
-FileLoader::FileLoader(Graph* graph, const string& filename, double loadfactor) {
+FileLoader::FileLoader(Graph* graph, const string filename, double loadfactor) {
     if (filename.size() <= 4) throw runtime_error("Error: Unaccetable file name.");
     this->graph = graph;
     this->filename = filename;
@@ -28,10 +28,11 @@ void FileLoader::load(double loadfactor) {
     file_.seekg(0, file_.beg);
 }
 
+// A handler function that check supported file extension and file length
 void FileLoader::build() {
     string ext = filename.substr(filename.size()-4,filename.size());
     Extension extension = findExtension(ext);
-    if (extension == Extension()) throw runtime_error("Error: Fail to load file, only support txt and csv file.");
+    if (extension == unsupported) throw runtime_error("Error: Fail to load file, only support txt and csv file.");
     if (extension == csv) buildCSV();
     if (extension == txt) buildTXT();
 }
@@ -49,7 +50,7 @@ size_t FileLoader::getByte() {
 Extension FileLoader::findExtension(const string& extension) const {
     if (extension == ".txt") return txt;
     if (extension == ".csv") return csv;
-    return Extension();
+    return unsupported;
 }
 
 void FileLoader::buildCSV() {
@@ -58,7 +59,7 @@ void FileLoader::buildCSV() {
         getline(file_, line);
         // cout<<line<<endl;                           // print raw data
 
-        if (!isdigit(line[0])) continue;  // skip header
+        if (line.size() == 0 || !isdigit(line[0])) continue;  // skip header
 
         // extract nodes from csv format
         unsigned idx=0;
@@ -69,21 +70,44 @@ void FileLoader::buildCSV() {
         while (idx < line.size() && line[idx] != ',') {
             rhs += line[idx++];
         }
+        // cout<<"lhs: "<<lhs<<endl;
+        // cout<<"rhs: "<<rhs<<endl;
+        if (!validNode(lhs, rhs)) throw runtime_error("Error: csv file unacceptable format.");
 
-        if (!checkCSV(lhs, rhs)) throw runtime_error("Error: csv file unacceptable format.");
-        if (line.size()-1 != lhs.size()+rhs.size()) throw runtime_error("Error: input file non-compatiable format.");
+        // CSV file dose not have white space therefore can include a size check
+        if (line.size()-1 != lhs.size()+rhs.size()) throw runtime_error("Error: input csv file non-compatiable format.");
         
-        // undirected graph, add edge both ways
-        graph->addToList(lhs);
-        graph->addNode(lhs, rhs);
-        if (graph->type() == undirected) {
-            graph->addToList(rhs);
-            graph->addNode(rhs, lhs);
-        }
+        addToGraph(lhs, rhs);
     }
 }
 
-bool FileLoader::checkCSV(const string& lhs, const string& rhs) {
+void FileLoader::buildTXT() {
+    while (hasNext()) {
+        string line, lhs, rhs;
+        getline(file_, line);
+        // cout<<line<<endl;                           // print raw data
+
+        if (line.size() == 0 || !isdigit(line[0])) continue;  // skip header
+
+        // extract nodes from txt format
+        unsigned idx=0;
+        while (idx < line.size() && isdigit(line[idx])) {
+            lhs += line[idx++];
+        }
+        while (idx < line.size() && !isdigit(line[idx])) {
+            idx++;
+        }
+        while (idx < line.size() && isdigit(line[idx])) {
+            rhs += line[idx++];
+        }
+        // cout<<"lhs: "<<lhs<<" rhs: "<<rhs<<endl;
+        if (!validNode(lhs, rhs)) throw runtime_error("Error: txt file unacceptable format.");
+        
+        addToGraph(lhs, rhs);
+    }
+}
+
+bool FileLoader::validNode(const string& lhs, const string& rhs) {
     if (lhs.size() == 0 || rhs.size() == 0) return false;
     for (char c : lhs) {
         if (!isdigit(c)) return false;
@@ -94,6 +118,11 @@ bool FileLoader::checkCSV(const string& lhs, const string& rhs) {
     return true;
 }
 
-void FileLoader::buildTXT() {
-    // need implementation
+void FileLoader::addToGraph(const string& lhs, const string& rhs) {
+    graph->addToList(lhs);
+    graph->addToList(rhs);
+    graph->addNode(lhs, rhs);
+    if (graph->type() == undirected) {
+        graph->addNode(rhs, lhs);
+    }
 }

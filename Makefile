@@ -5,8 +5,7 @@ EXE_OBJ = main.o
 OBJS = main.o 
 
 # Additional executables
-EXE_GRAPHS   = graphs
-#EXE_BFS      = testBFS
+
 
 
 # Override "default" rule provided by the Makefile template

@@ -11,12 +11,13 @@ using namespace std;
 
 enum Extension {
   txt,
-  csv  
+  csv,
+  unsupported
 };
 
 class FileLoader {
     public:
-        FileLoader(Graph* graph, const string& filename, double loadfactor=1.0);
+        FileLoader(Graph* graph, const string filename, double loadfactor=1.0);
         ~FileLoader();
 
     private:
@@ -32,7 +33,8 @@ class FileLoader {
         bool hasNext();
         void buildCSV();
         void buildTXT();
-        bool checkCSV(const string& lhs, const string& rhs);
+        bool validNode(const string& lhs, const string& rhs);
+        void addToGraph(const string& lhs, const string& rhs);
 };
 
 

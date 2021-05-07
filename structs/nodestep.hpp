@@ -8,7 +8,7 @@ using std::string;
 
 struct NodeStep {
     string node;
-    int step;
+    int step = 0;
     NodeStep(){}
     NodeStep(string nodep, int stepp):node(nodep), step(stepp){}
     NodeStep(string nodep, const NodeStep& other) { // increment step for shortest distance

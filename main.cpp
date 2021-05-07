@@ -1,88 +1,53 @@
-#include <iostream>
-#include <string>
-#include "graphs/udgraph.h"
-#include "traversals/BFS.h"
-#include "traversals/traversal.h"
+#include "structs/util.hpp"
 
-#include <fstream>
-#include <istream>
-using namespace std;
+int main (int argc, char** argv) {
+    
 
-void print(const vector<string>& v) {
-    if (v.size() == 0) return;
-    cout<<"[";
-    for (unsigned i=0; i<v.size(); i++) {
-        if (i == v.size()-1) {
-            cout<<v[i];
-        } else {
-            cout<<v[i]<< ", ";
-        }
+    Util util;
+
+    // one-line cmd run
+    if (argc >= 7) {
+        string filename;
+        string loadfactor_s = argv[3];
+        double loadfactor;
+        filename = argv[1];
+        loadfactor = stof(loadfactor_s);
+        string(argv[2]) == "directed" ? util.loadGraph(filename, directed, loadfactor) : util.loadGraph(filename, undirected, loadfactor);
+        string algorithm = argv[4];
+        string from = argv[5];
+        string to = argv[6];
+
+        if (from == "-1") from = util.graph->getRandom();
+        if (to == "-1") to = util.graph->getRandom();
+        
+        util.printDataStatus();
+
+        if (algorithm == "DFS") util.performDFS(from, to);
+        else if (algorithm == "BFS") util.performBFS(from, to);
+        else if (algorithm == "IDDFS" && argc>= 8) util.performIDDFS(from, to, stoi(string(argv[7])));
+        else if (algorithm == "Dijkstra") util.performDijkstra(from, to);
+        else if (algorithm == "SCC") util.performSCC(stoi(string(argv[5])), stoi(string(argv[6])));
+        else cout<<"Please check your input format."<<endl;
+        return 0;
     }
-    cout<<"]"<<endl;
-}
 
+    // console user interaction
+    cout<<" ------------------------------- "<<endl;
+    cout<<"| General Graph Search Tool 1.0 |"<<endl;
+    cout<<" ------------------------------- "<<endl;
 
-// int main (int argc, char** argv) {
-int main () {
-    // string filename = "assets/test.csv";
+    while (true) {
+        string input;
+        util.printDataStatus();
+        cout<<"Please input number 1-9 for your action (8 for help): ";
+        cin>>input;
+        
+        if (input == "1") util.loadGraphHandler();
+        if (input == "2") util.algorithmHandler();
+        if (input == "8") util.printActions();
+        if (input == "9") break;
+    }
 
-    // string filename = "assets/musae_git_edges.csv";
-
-    // UdGraph g;
-    // g.buildMap(filename,0.4);
-
-    // cout<<"two random nodes picked are: "<<endl;
-    // srand(time(0));
-    // string nodeA = g.getRandom();
-    // string nodeB = g.getRandom();
-    // cout<<"point A: "<<nodeA<<endl;
-    // cout<<"point B: "<<nodeB<<endl;
-
-    // int distance = g.getShortestDistance(nodeA, nodeB);
-    // cout<<"Social distance between A and B are: "<<distance<<endl;
-
-
-    // <------------test new traversal based classes------------>
-    string filename = "tests/testInputBFS/test2.csv";
-    vector<int> expected = {-1,5,2,2,-1};
-    UdGraph test(filename);
-    test.bfs("3");
-    // test.buildMap(filename, 1);
-
-    // BFS bfs(&test, NodeStep("3", 0));
-    // cout<<"*****calling iterator*****"<<endl;
-    // for (auto it = bfs.begin(); it != bfs.end(); ++it) {
-    //     cout<<(*it)<<endl;
-    // }
+    cout<<"Goodbye!"<<endl;
     return 0;
 }
-
-
-// <------------for test output------------>
-
-// int main () {
-//     string filename = "assets/test.csv";
-//     //string filename = "assets/musae_git_edges.csv";
-
-//     string data;
-//     ifstream file;
-//     file.open(filename);
-    
-//     // set position to the end
-//     file.seekg(0, file.end);
-
-//     // get total word count
-//     int length = file.tellg();
-    
-//     // set position to the begining
-//     file.seekg (0, file.beg);
-    
-//     cout<<length<<" line: "<<__LINE__<<endl;
-
-//     while (getline (file, data)) {
-//     // Output the text from the file
-//     cout << data <<endl;
-//     }
-
-//     return 0;
-// }

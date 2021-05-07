@@ -15,6 +15,7 @@ class Traversal {
         class Iterator: iterator<forward_iterator_tag, NodeStep> {
             public:
                 Iterator();
+                Iterator(int n);
                 Iterator(Traversal* traversal, NodeStep& start);
                 Iterator & operator++();
                 NodeStep operator*();

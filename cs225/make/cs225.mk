@@ -14,8 +14,8 @@ CXX = clang++
 LD = clang++
 OBJS_DIR = .objs
 
-OBJS += graphs/graph.o graphs/udgraph.o graphs/digraph.o traversals/traversal.o traversals/BFS.o fileloaders/fileloader.o
-
+OBJS += graphs/graph.o graphs/udgraph.o graphs/digraph.o traversals/traversal.o traversals/BFS.o traversals/DFS.o 
+OBJS += traversals/IDDFS.o traversals/Dijkstra.o fileloaders/fileloader.o
 # Add standard CS 225 object files
 # OBJS += cs225/HSLAPixel.o cs225/PNG.o cs225/lodepng/lodepng.o
 
@@ -26,13 +26,13 @@ OBJS += graphs/graph.o graphs/udgraph.o graphs/digraph.o traversals/traversal.o 
 DEPFILE_FLAGS = -MMD -MP
 
 # Provide lots of helpful warning/errors:
-WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable
+WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
 # Flags for compile:
 CXXFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c
 
 # Flags for linking:
-LDFLAGS += $(CS225) -std=c++1y -stdlib=libc++
+LDFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -lc++abi
 
 # Rule for `all` (first/default rule):
 all: $(EXE)

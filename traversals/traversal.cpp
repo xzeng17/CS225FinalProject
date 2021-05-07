@@ -1,8 +1,6 @@
 #include<stack>
 #include<queue>
 #include<string>
-#include<iterator>
-#include<set>
 #include<map>
 #include<iostream>
 
@@ -20,14 +18,15 @@ Traversal::Iterator::Iterator(Traversal* traversal, NodeStep& start) {
     traversal_ = traversal;
     if (canMove(start)) traversal_->add(start);
     else traversal_ = NULL;
+    visited_.insert(start.node);
     *this = ++*this;
 }
 
 Traversal::Iterator& Traversal::Iterator::operator++() {
-    if (!traversal_->empty()) {
+    if (traversal_ && !traversal_->empty()) {
         current_ = traversal_->pop();
         for (string next : traversal_->getSet(current_.node)) {
-            NodeStep nextns(next, current_);
+            NodeStep nextns(next, current_);    // copy ctor add 1 to the step count
             if (canMove(nextns)) {
                 traversal_->add(nextns);
                 visited_.insert(current_.node);

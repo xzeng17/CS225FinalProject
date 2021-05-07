@@ -7,9 +7,12 @@
 
 using namespace std;
 
-UdGraph::UdGraph(const string& filename, double loadfactor) {
+UdGraph::UdGraph(const string filename, double loadfactor) {
     try{
         FileLoader(this, filename, loadfactor);
+        setFileName(filename);
+        setLoadFactor(loadfactor);
+        setWeights();
     } catch (runtime_error e) {
         cout<<e.what()<<endl;
     }
